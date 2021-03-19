@@ -1,0 +1,25 @@
+function dsn_parse($mail)
+{
+    $parts = $mail->findByType("^message/delivery-status$");
+    if (!$parts)
+        return none;
+    [$message, ...$recipients] = array_map(
+                    MailMessage::String,
+                    str_split(str_replace("\r\n", "\n", $parts[0]->getBody()), "\n\n")
+                );
+
+    $dsn = [];
+    foreach ($message->getHeaderNames() as $field)
+        $dsn["message"][$field] = $message->getHeaders($field)[0];
+    foreach ($recipients as $recipient)
+    {
+        $r = [];
+        foreach ($recipient->getHeaderNames() as $field)
+            $r[$field] = $recipient->getHeaders($field)[0];
+        if (!$r)
+            continue;
+        $dsn["recipients"][] = $r;
+    }
+
+    return $dsn;
+}

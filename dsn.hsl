@@ -1,4 +1,4 @@
-function dsn_parse($mail)
+function dsn_parse($mail, $options = ["original_message" => false, "original_headers" => false])
 {
     $parts = $mail->findByType("^message/delivery-status$");
     if (!$parts)
@@ -19,6 +19,26 @@ function dsn_parse($mail)
         if (!$r)
             continue;
         $dsn["recipients"][] = $r;
+    }
+
+    if ($options["original_message"]) {
+        $parts = $mail->findByType(''^message/rfc822$'');
+        if ($parts) {
+            $body = $parts[0]->getBody();
+            if ($body) {
+                $dsn["original_message"] = $body;
+            }
+        }
+    }
+
+    if ($options["original_headers"]) {
+        $parts = $mail->findByType(''^text/rfc822-headers$'');
+        if ($parts) {
+            $body = $parts[0]->getBody();
+            if ($body) {
+                $dsn["original_headers"] = $body;
+            }
+        }
     }
 
     return $dsn;

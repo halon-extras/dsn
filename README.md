@@ -1,6 +1,20 @@
-## dsn_parse($message)
+## dsn_parse($mail, $options)
 
 Parse a rfc3464 compliant MIME part (message/delivery-status), into a associative array containing the per-message fields and per-recipient fields (all lowercased).
+
+**Params**
+
+- mail `MailMessage` - The mail message
+- options `array` - options array
+
+**Returns**:
+* An `array` with keys `message`, `recipients` and optionally `original_message` and `original_headers`
+* `none` on errors
+
+The following options are available in the **options** array.
+
+- original_message `boolean` - Include the original mail message in the output (if it exists), the default is `false`
+- original_headers `boolean` - Include the original mail message headers in the output (if they exist), the default is `false`
 
 ```
 {
@@ -21,5 +35,3 @@ Parse a rfc3464 compliant MIME part (message/delivery-status), into a associativ
   ]
 }
 ```
-
-On errors `none` is returned.

@@ -28,7 +28,7 @@ The following options are available in the **options** array.
     {
       "final-recipient": "rfc822; user@example.org",
       "action": "failed",
-      "status": "5.7.1 An error message",
+      "status": "5.7.1",
       "remote-mta": "dns; imap.example.org",
       "diagnostic-code": "smtp; 550 5.7.1 An error message"
     }

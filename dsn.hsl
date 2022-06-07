@@ -1,6 +1,6 @@
 function dsn_parse($mail, $options = ["original_message" => false, "original_headers" => false])
 {
-    $parts = $mail->findByType("^message/delivery-status$");
+    $parts = $mail->findByType(''^message\/(?:delivery-status|global-delivery-status)$'');
     if (!$parts)
         return none;
     [$message, ...$recipients] = array_map(
@@ -22,7 +22,7 @@ function dsn_parse($mail, $options = ["original_message" => false, "original_hea
     }
 
     if ($options["original_message"]) {
-        $parts = $mail->findByType(''^message/rfc822$'');
+        $parts = $mail->findByType(''^message\/(?:rfc822|global)$'');
         if ($parts) {
             $body = $parts[0]->getBody();
             if ($body) {
@@ -32,7 +32,7 @@ function dsn_parse($mail, $options = ["original_message" => false, "original_hea
     }
 
     if ($options["original_headers"]) {
-        $parts = $mail->findByType(''^text/rfc822-headers$'');
+        $parts = $mail->findByType(''^(?:text\/rfc822-headers|message\/global-headers)$'');
         if ($parts) {
             $body = $parts[0]->getBody();
             if ($body) {

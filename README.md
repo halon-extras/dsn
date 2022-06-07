@@ -1,6 +1,6 @@
 ## dsn_parse($mail, $options)
 
-Parse a rfc3464 compliant MIME part (message/delivery-status), into a associative array containing the per-message fields and per-recipient fields (all lowercased).
+Parse a rfc3464 (message/delivery-status) or rfc6533 (message/global-delivery-status) compliant MIME part into a associative array containing the per-message fields and per-recipient fields (all lowercased).
 
 **Params**
 

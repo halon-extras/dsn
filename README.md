@@ -1,4 +1,26 @@
-## dsn_parse($mail, $options)
+# DSN parser
+
+## Installation
+
+Follow the [instructions](https://docs.halon.io/manual/comp_install.html#installation) in our manual to add our package repository and then run the below command.
+
+### Ubuntu
+
+```
+apt-get install halon-extras-dsn
+```
+
+### RHEL
+
+```
+yum install halon-extras-dsn
+```
+
+## Exported functions
+
+These functions needs to be [imported](https://docs.halon.io/hsl/structures.html#import) from the `extras://dsn` module path.
+
+### dsn_parse($mail, $options)
 
 Parse a rfc3464 (message/delivery-status) or rfc6533 (message/global-delivery-status) compliant MIME part into a associative array containing the per-message fields and per-recipient fields (all lowercased).
 
